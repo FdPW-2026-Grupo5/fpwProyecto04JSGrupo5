@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Card, Button, Alert } from 'react-bootstrap';
+import { Card, Button, Alert } from 
+'react-bootstrap';
 
 function SimuladorDado({ jugador, onLanzar }) {
   const [dado, setDado] = useState(1);
