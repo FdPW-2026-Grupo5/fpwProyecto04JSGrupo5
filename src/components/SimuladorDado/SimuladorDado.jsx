@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
+import { emojisDado } from '../../data/dadosEmojis';
+import './SimuladorDado.css';
 
 function SimuladorDado({ jugador, onLanzar }) {
   const [dado, setDado] = useState(1);
-  const emojisDado = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
   const lanzarDado = () => {
     const nuevoValor = Math.floor(Math.random() * 6) + 1;
@@ -19,34 +20,31 @@ function SimuladorDado({ jugador, onLanzar }) {
     return "";
   };
 
-  const tieneDatosJugador = jugador.nombre || jugador.apellido || jugador.edad;
-
   return (
-    <Card className="text-center border-0 shadow-sm p-3 bg-transparent">
+    <Card className="simulador-dado-card">
       <Card.Body>
-        <div style={{ fontSize: '6rem', fontWeight: '300', lineHeight: '1' }} className="text-white">
-          {dado}
-        </div>
+        <span className="simulador-dado-etiqueta">A JUGAR</span>
+        <Card.Title className="simulador-dado-titulo">Lanzá el dado</Card.Title>
 
-        <p className="fs-5 mb-1 text-white d-flex align-items-center justify-content-center gap-2">
-          Te tocó: 
-          <span style={{ fontSize: '2.5rem', lineHeight: '0', position: 'relative', top: '4px' }}>
+        <div className="simulador-dado-resultado" aria-live="polite">
+          <span className="simulador-dado-numero">{dado}</span>
+          <span className="simulador-dado-emoji" aria-label={`Cara del dado ${dado}`}>
             {emojisDado[dado - 1]}
           </span>
-        </p>
+        </div>
 
-        <p className="fw-semibold text-secondary mb-3">
+        <p className="simulador-dado-mensaje">
           {obtenerMensaje(dado)}
         </p>
 
-        {tieneDatosJugador && (
-          <Alert variant="dark" className="py-2 fs-6 mb-4 text-start mx-auto" style={{ maxWidth: '400px' }}>
+        {(jugador.nombre || jugador.apellido || jugador.edad) && (
+          <Alert variant="dark" className="simulador-dado-jugador" >
             <strong>Jugador:</strong> {jugador.nombre} {jugador.apellido}{' '}
             {jugador.edad && `(${jugador.edad} años)`}
           </Alert>
         )}
 
-        <Button variant="secondary" size="lg" onClick={lanzarDado} className="px-4 py-2 mt-2">
+        <Button variant="primary" size="lg" onClick={lanzarDado} className="simulador-dado-boton">
           Lanzar Dado
         </Button>
       </Card.Body>

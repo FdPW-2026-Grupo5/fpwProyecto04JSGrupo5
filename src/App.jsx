@@ -1,20 +1,19 @@
-import { useState } from 'react';
-import { Container } from 'react-bootstrap';
-import FormularioJugador from './components/FormularioJugador/FormularioJugador';
-import SimuladorDado from './components/SimuladorDado/SimuladorDado';
+import { useState } from "react";
+import { Container } from "react-bootstrap";
+import FormularioJugador from "./components/FormularioJugador/FormularioJugador";
+import SimuladorDado from "./components/SimuladorDado/SimuladorDado";
 
 function App() {
-  
   const [datosFormulario, setDatosFormulario] = useState({
-    nombre: '',
-    apellido: '',
-    edad: ''
+    nombre: "",
+    apellido: "",
+    edad: "",
   });
 
   const [jugadorConfirmado, setJugadorConfirmado] = useState({
-    nombre: '',
-    apellido: '',
-    edad: ''
+    nombre: "",
+    apellido: "",
+    edad: "",
   });
 
   const confirmarJugada = () => {
@@ -22,18 +21,27 @@ function App() {
   };
 
   return (
-    <Container className="py-5" style={{ maxWidth: '600px' }}>
+    <Container fluid className="py-5">
       <h1 className="text-center mb-4 fw-normal">Simulador de Dado</h1>
-      
-      <FormularioJugador 
-        jugador={datosFormulario} 
-        setJugador={setDatosFormulario} 
-      />
-      
-      <SimuladorDado 
-        jugador={jugadorConfirmado} 
-        onLanzar={confirmarJugada} 
-      />
+
+      <table style={{ width: "900px", tableLayout: "fixed" }}>
+        <tbody>
+          <tr>
+            <td style={{ width: "450px" }}>
+              <FormularioJugador
+                jugador={datosFormulario}
+                setJugador={setDatosFormulario}
+              />
+            </td>
+            <td style={{ width: "450px" }}>
+              <SimuladorDado
+                jugador={jugadorConfirmado}
+                onLanzar={confirmarJugada}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </Container>
   );
 }
