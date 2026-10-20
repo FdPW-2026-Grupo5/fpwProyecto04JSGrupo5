@@ -18,6 +18,11 @@ function App() {
 
   const confirmarJugada = () => {
     setJugadorConfirmado({ ...datosFormulario });
+    setDatosFormulario({
+      nombre: '',
+      apellido: '',
+      edad: ''
+    });
   };
 
   return (
@@ -36,6 +41,7 @@ function App() {
             <td style={{ width: "450px" }}>
               <SimuladorDado
                 jugador={jugadorConfirmado}
+                datosActualesFormulario={datosFormulario}
                 onLanzar={confirmarJugada}
               />
             </td>

@@ -3,14 +3,28 @@ import { Card, Button, Alert } from 'react-bootstrap';
 import { emojisDado } from '../../data/dadosEmojis';
 import './SimuladorDado.css';
 
-function SimuladorDado({ jugador, onLanzar }) {
+function SimuladorDado({ jugador, datosActualesFormulario, onLanzar }) {
   const [dado, setDado] = useState(1);
+  const [errorValidacion, setErrorValidacion] = useState(false); // Estado para el error
 
   const lanzarDado = () => {
+
+    if (
+        !datosActualesFormulario.nombre.trim() ||
+        !datosActualesFormulario.apellido.trim() ||
+        !datosActualesFormulario.edad.trim()
+    ) {
+      setErrorValidacion(true); // Mostrar mensaje de error
+      return; // Detener la ejecución, no se lanza el dado
+    }
+
+    // Si pasa la validación, quitamos el error por si estaba activo
+    setErrorValidacion(false);
+
     const nuevoValor = Math.floor(Math.random() * 6) + 1;
     setDado(nuevoValor);
     
-    onLanzar(); 
+    onLanzar();
   };
 
   const obtenerMensaje = (valor) => {
@@ -42,6 +56,13 @@ function SimuladorDado({ jugador, onLanzar }) {
             <strong>Jugador:</strong> {jugador.nombre} {jugador.apellido}{' '}
             {jugador.edad && `(${jugador.edad} años)`}
           </Alert>
+        )}
+
+        {/* Alerta de Validación si intentan lanzar el dado sin completar los datos */}
+        {errorValidacion && (
+            <Alert variant="danger" className="py-2 fs-6 mb-3 mx-auto" style={{ maxWidth: '400px' }}>
+              Por favor, completa todos los datos (Nombre, Apellido y Edad) antes de lanzar el dado.
+            </Alert>
         )}
 
         <Button variant="primary" size="lg" onClick={lanzarDado} className="simulador-dado-boton">
