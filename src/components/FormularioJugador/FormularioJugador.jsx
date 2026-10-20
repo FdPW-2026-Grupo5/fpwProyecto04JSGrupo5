@@ -1,14 +1,35 @@
 import { Card, Form } from 'react-bootstrap';
 import './FormularioJugador.css';
 
+import {
+  validarNombreApellido,
+  validarEdad
+} from '../Services/validaciones.js';
+
 function FormularioJugador({ jugador, setJugador }) {
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setJugador((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === 'nombre' || name === 'apellido') {
+    if (!validarNombreApellido(value)) {
+      return;
+    }
+  }
+
+  if (name === 'edad') {
+    // Solo controlar los caracteres durante la escritura
+    if (!/^[0-9]*$/.test(value)) {
+      return;
+    }
+
+  }
+
+  setJugador((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+
+};
 
   return (
     <Card className="formulario-jugador-card">
@@ -44,11 +65,14 @@ function FormularioJugador({ jugador, setJugador }) {
           <Form.Group className="formulario-jugador-campo" controlId="formEdad">
             <Form.Label>Edad</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
+              inputMode="numeric"
               name="edad"
               placeholder="Ingresa tu edad"
               value={jugador.edad}
               onChange={handleInputChange}
+              minLength={2}
+              maxLength={2}
               className="formulario-jugador-control"
             />
           </Form.Group>
