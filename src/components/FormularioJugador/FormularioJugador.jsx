@@ -3,7 +3,6 @@ import './FormularioJugador.css';
 
 import {
   validarNombreApellido,
-  validarEdad
 } from '../Services/validaciones.js';
 
 function FormularioJugador({ jugador, setJugador }) {
@@ -17,7 +16,6 @@ const handleInputChange = (e) => {
   }
 
   if (name === 'edad') {
-    // Solo controlar los caracteres durante la escritura
     if (!/^[0-9]*$/.test(value)) {
       return;
     }

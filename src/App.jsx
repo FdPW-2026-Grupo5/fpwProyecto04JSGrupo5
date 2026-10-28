@@ -18,11 +18,6 @@ function App() {
 
   const confirmarJugada = () => {
     setJugadorConfirmado({ ...datosFormulario });
-    setDatosFormulario({
-      nombre: '',
-      apellido: '',
-      edad: ''
-    });
   };
 
   return (

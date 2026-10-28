@@ -5,7 +5,7 @@ import './SimuladorDado.css';
 
 function SimuladorDado({ jugador, datosActualesFormulario, onLanzar }) {
   const [dado, setDado] = useState(1);
-  const [errorValidacion, setErrorValidacion] = useState(false); // Estado para el error
+  const [errorValidacion, setErrorValidacion] = useState(false);
 
   const lanzarDado = () => {
 
@@ -14,11 +14,13 @@ function SimuladorDado({ jugador, datosActualesFormulario, onLanzar }) {
         !datosActualesFormulario.apellido.trim() ||
         !datosActualesFormulario.edad.trim()
     ) {
-      setErrorValidacion(true); // Mostrar mensaje de error
-      return; // Detener la ejecución, no se lanza el dado
+      setErrorValidacion(true);
+      jugador.nombre = "";
+      jugador.apellido = "";
+      jugador.edad = "";
+      return;
     }
 
-    // Si pasa la validación, quitamos el error por si estaba activo
     setErrorValidacion(false);
 
     const nuevoValor = Math.floor(Math.random() * 6) + 1;
@@ -58,7 +60,6 @@ function SimuladorDado({ jugador, datosActualesFormulario, onLanzar }) {
           </Alert>
         )}
 
-        {/* Alerta de Validación si intentan lanzar el dado sin completar los datos */}
         {errorValidacion && (
             <Alert variant="danger" className="py-2 fs-6 mb-3 mx-auto" style={{ maxWidth: '400px' }}>
               Por favor, completa todos los datos (Nombre, Apellido y Edad) antes de lanzar el dado.
